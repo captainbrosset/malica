@@ -1,0 +1,19 @@
+.infoMessage {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	color: white;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	font-size:12px;
+	list-style-type: none;
+	z-index: 1000;
+}
+.infoMessage li {
+	margin: 1px 0;
+	background: #e3354e;
+	padding: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}

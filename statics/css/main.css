@@ -1,0 +1,24 @@
+/* Main body style, mainly font and background color */
+body {
+	font-family: Helevetica, Arial, sans-serif;
+	background: white;
+	font-size: 12px;
+}
+/* Reseting borring margins and lists */
+body, h1, h2, h3, ul, li {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+/* Main links styles */
+a {
+	text-decoration: underline;
+	color: #4c4b48;
+}
+
+/* Centering all pages to 1000 px */
+.wrap {
+	width: 1000px;
+	margin: 0 auto;
+	position: relative;
+}

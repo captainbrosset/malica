@@ -1,0 +1,18 @@
+#footer {
+	background: white;
+	padding: 20px 0 0 0;
+}
+#footer #latestPresents {
+	width: 1000px;
+	margin: 0 auto;
+}
+#footer h3 {
+	color: #333;
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+#footer #searchForm {
+	margin: 0 auto;
+	width: 545px;
+	float: none !important;
+}

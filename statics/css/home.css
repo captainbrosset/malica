@@ -1,0 +1,43 @@
+#home {
+	padding-top: 1px;
+}
+
+#home h1 {
+	height: 200px;
+	width: 467px;
+	background: url(../images/logo-small.png) no-repeat center 20px;
+	margin-top: 60px;
+}
+#home h1 span {
+	display: none;
+}
+
+#intro {
+	position: absolute;
+	top: 40px;
+	left: 470px;
+	width: 580px;
+}
+#home h2 {
+	font-size: 30px;
+	font-weight: bold;
+	color: #40b9bc;
+	line-height: 30px;
+	margin: 0 0 20px 0;
+}
+
+#home .homeButton {
+	float: left;
+	margin: 0 30px 0 0;
+	background: url(../images/home-button-left.png) no-repeat top left;
+	padding-left: 42px;
+}
+#home .homeButton a {
+	color: #25a5c1;
+	font-size: 19px;
+	font-family: arial;
+	text-decoration: none;
+	display: block;
+	padding: 16px 42px 16px 0;
+	background: url(../images/home-button.png) no-repeat top right;
+}

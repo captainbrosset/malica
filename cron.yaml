@@ -1,0 +1,8 @@
+cron:
+- description: repair 404 images
+  url: /fixImage404Errors
+  schedule: every 2 hours
+  
+- description: send weekly email
+  url: /sendReportEmail
+  schedule: every sunday 09:00

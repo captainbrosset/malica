@@ -1,0 +1,40 @@
+{% include "../parts/header.html" %}
+
+<link rel="stylesheet" href="/statics/css/page.css" type="text/css" media="screen" />
+
+<div id="page">
+	<div class="wrap">
+		<div id="header">
+			<h1>
+				<a href="/" title="malica - ma liste de cadeaux"><span>ma liste de cadeaux</span></a>
+			</h1>
+			
+			<p id="um">
+				<span class="um_email">{{ current_user.email }}</span>
+				<span class="um_link">
+					<a href="{{ um_url }}">{{ um_link_text }}</a>
+				</span>
+				{% if gravatar_url %}
+				<img src="{{ gravatar_url }}" />
+				{% endif %}
+			</p>
+			
+			<ul id="nav">
+				{% block nav %}
+					<li><a href="#">nav item 1</a></li>
+					<li><a href="#">nav item 2</a></li>
+					<li><a href="#">nav item 3</a></li>
+				{% endblock %}
+			</ul>
+		</div>
+	
+		<div id="content">
+			{% block content %}
+				content
+			{% endblock %}
+		</div>
+	</div>
+
+</div>
+
+{% include "../parts/footer.html" %}

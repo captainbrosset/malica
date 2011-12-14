@@ -1,0 +1,16 @@
+application: malistedecadeaux
+version: 3
+runtime: python
+api_version: 1
+
+handlers:
+- url: /statics
+  static_dir: statics
+- url: .*
+  script: main.py
+
+builtins:
+- datastore_admin: on
+
+inbound_services:
+- xmpp_message

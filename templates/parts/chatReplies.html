@@ -1,0 +1,5 @@
+{% if isAdded %}
+Le cadeau a bien été ajouté: "{{ present.title }}"
+{% else %}
+Le cadeau n'a pas pu être ajouté, veuillez rentrer une adresse internet correcte (erreur: {{ error }})
+{% endif %}

@@ -1,0 +1,52 @@
+{% extends "Base.html" %}
+
+{% block nav %}
+	<li>ajouter un cadeau &agrave; la liste {{ current_user }}</li>
+	<li><a href="/">retour à ma liste</a></li>
+{% endblock %}
+
+{% block content %}
+	<link rel="stylesheet" href="/statics/css/addPresent.css" type="text/css" media="screen" />
+
+	<!-- div class="sideNote">
+		<h3>Ajouter un cadeau par tchat!</h3>
+		<p>Utilisateurs de GoogleTalk, iChat (via jabber), Gmail, etc ... ceci est pour vous:</p>
+		<p><strong>Invitez <a href="#">malistedecadeaux@appspot.com</a> dans vos contacts pour pouvoir ajouter de nouveaux cadeaux dans votre liste par tchat.</strong></p>
+		<p><img src="/statics/images/chatExample.png" alt="un example de chat avec malica" /></p>
+		<h3>Ajouter un cadeau depuis n'importe quel site!</h3>
+		<p>Vous pouvez aussi ajouter un cadeau depuis n'importe quel site web, directement depuis votre navigateur en clickant sur un seul bouton!</p>
+		<p>Pour cela, ajoutez simplement le lien ci-dessous à votre liste de favoris, et une fois sur une page web de cadeau que vous souhaitez sauvegarder, clickez sur le favoris.</p>
+		<textarea style="width:100%">javascript:var iframe=document.createElement("iframe");iframe.style.display="none";document.body.appendChild(iframe);iframe.src="http://malistedecadeaux.appspot.com/quickAdd?site="+encodeURIComponent(document.location.href);</textarea> 
+	</div -->
+
+	<div id="addPresentForm">
+		<input type="text" id="smartInput" placeholder="Ajoutez un cadeau. Entrez une description ou un lien." />
+		
+		<ul id="images"></ul>
+		<input type="hidden" id="image" />
+		
+		<input id="url" type="text" name="url" placeholder="http://..." />
+		<textarea id="title" type="text" name="title" placeholder="Description du cadeau" rows="3" cols="10"></textarea>
+		<input id="approximatePrice" type="text" name="approximatePrice" placeholder="40" />
+		
+		<script type="text/javascript" src="/statics/js/malica/utils/ImageResizer.js"></script>
+		<script type="text/javascript" src="/statics/js/malica/utils/SmartInputDetector.js"></script>
+		<script type="text/javascript" src="/statics/js/malica/AddPresent.js"></script>
+		<script type="text/javascript">
+			var page = new malica.AddPresentPage($('#smartInput'));
+			page.init();
+		</script>
+	</div>
+	
+	<div id="addPresentPreview">
+		<div class="presentItem">
+			<div class="img">&nbsp;
+				<img src="/statics/images/noImage.png" />
+			</div>
+			<div class="info">
+				<h4><span class="title"></span><span class="url"></span></h4>
+				<p class="price">-- &euro;</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

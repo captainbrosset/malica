@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block pageType %}partager la liste{% endblock %}
+
+{% block pageTitle %}{{ current_user }}{% endblock %}
+
+{% block nav %}
+	<li><a href="/">Ma liste</a></li>
+{% endblock %}
+
+{% block content %}
+
+	<form action="/share" method="post" id="shareListForm">
+		<p>
+			Communiquez l'adresse suivante à vos proches afin qu'ils puissent la copier/coller dans un navigateur internet: <a href="#">{{userPublicUrl}}</a>
+			<br />Ou alors, envoyez-leur un email en utilisant le formulaire ci-dessous:
+		</p>
+		<div>
+			<label for="shareEmailList">Adresses email (séparées par des virgules)</label><br />
+			<input id="shareEmailList" value="" name="emails" />
+			<label for="shareEmailBody">Message</label><br />
+			<textarea id="shareEmailBody" name="message" cols="70" rows="10">Bonjour,
+
+Je vous invite &agrave; venir consulter ma liste d'envies cadeaux à l'adresse suivante:
+
+{{userPublicUrl}}
+
+Si comme moi vous voulez sauvegarder vos idées cadeaux facilement pour les partager avec vos proches, rendez vous sur {{siteUrl}}!
+
+A bientot!</textarea>
+			<button type="submit">Envoyer</button>
+		</div>
+	</form>
+{% endblock %}

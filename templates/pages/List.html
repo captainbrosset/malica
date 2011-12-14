@@ -1,0 +1,22 @@
+{% extends "Base.html" %}
+
+{% block nav %}
+	<li>la liste de {{ currentListEmail }}</li>
+	{% if current_user %}
+	<li><a href="/ajouter">Ajouter un cadeau</a></li>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<div id="list">
+		{% if atLeastOnePresent %}
+			<div class="sort">
+				Trier par:
+				<a href="{{ sortUrls.priceUrl }}">prix</a>
+				|
+				<a href="{{ sortUrls.dateUrl }}">date d'ajout</a>
+			</div>
+			{% include "../parts/presentList.html" %}
+		{% endif %}
+	</div>
+{% endblock %}

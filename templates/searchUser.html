@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block pageType %}liste de cadeaux de{% endblock %}
+
+{% block pageTitle %}{{searched_user}}{% endblock %}
+
+{% block nav %}
+	{% if current_user %}
+		<li><a href="/">Ma liste</a></li>
+	{% else %}
+		<li><a href="https://www.google.com/accounts/NewAccount" target="_blank">Créez un compte</a></li>
+		<li><a href="{{ um_url }}">Identifez-vous</a></li>
+	{% endif %}
+{% endblock %}
