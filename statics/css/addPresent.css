@@ -55,7 +55,9 @@
 }
 
 
-
+.presentItem {
+	width: 235px;
+}
 .presentItem .img {
 	line-height: 235px;
 	text-align: center;

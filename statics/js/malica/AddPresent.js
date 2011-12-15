@@ -24,6 +24,7 @@ malica.AddPresentPage.prototype._startUrlAddition = function(url, description) {
 	$("#url").val(url);
 	$("#title").val(description);
 	
+	var self = this;
 	$.getJSON("json_getInfoFromUrl?url=" + encodeURIComponent($("#url").val()), function(data) {
 		var images = data.img;
 		var title = data.title;
@@ -42,11 +43,18 @@ malica.AddPresentPage.prototype._startUrlAddition = function(url, description) {
 		resizer.resizeOnPageLoad(150, true);
 
 		$("#images img").bind("click", function() {
-			$("#image").val(this.src);
-			$("#images img").removeClass("selected");
-			$(this).addClass("selected");
+			self.selectImage(this);
 		});
 	});
+};
+malica.AddPresentPage.prototype.selectImage = function(img) {
+	$("#image").val(img.src);
+	$("#images img").removeClass("selected");
+	$(img).addClass("selected");
+	
+	$("#addPresentPreview img")[0].src = img.src;
+	
+	malica.ImageResizer.resize($("#addPresentPreview img")[0], img._size.w, img._size.h, 200);
 };
 malica.AddPresentPage.prototype._ = function() {
 	// Prevent submition of empty

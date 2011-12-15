@@ -16,27 +16,45 @@ malica.ImageResizer = function($images) {
  * !! Images must be visibility hidden in the page for this to work
  */
 malica.ImageResizer.prototype.resizeOnPageLoad = function(maxDim, noResizeIfSmaller) {
+	var self = this;
 	this._$images.each(function() {
 		var photo = this;
 		var img = new Image();
 		img.addEventListener('load', function() {
-			if(photo.width < 50 && photo.height < 50) {
-				photo.style.display = "none";
-			} else if(photo.width > 1000 || photo.height > 1000) {
-				photo.style.display = "none";
-			} else {
-				if(noResizeIfSmaller && photo.width < maxDim && photo.height < maxDim) {
-					photo.style.visibility = "visible";
-				} else {
-					if(photo.width > photo.height) {
-						photo.width = maxDim;
-					} else {
-						photo.height = maxDim;
-					}
-					photo.style.visibility = "visible";
-				}
-			}
+			photo._size = {
+				w: photo.width,
+				h: photo.height
+			};
+			self._resizeAPhoto(photo, maxDim, noResizeIfSmaller);
 		}, false);
 		img.src = photo.src;
 	});	
+};
+malica.ImageResizer.prototype.resizeAgain = function(maxDim, noResizeIfSmaller) {
+	var self = this;
+	this._$images.each(function() {
+		self._resizeAPhoto(this, maxDim, noResizeIfSmaller);
+	});
+};
+malica.ImageResizer.prototype._resizeAPhoto = function(photo, maxDim, noResizeIfSmaller) {
+	if(photo._size.w < 50 && photo._size.h < 50) {
+		photo.style.display = "none";
+	} else if(photo._size.w > 1000 || photo._size.h > 1000) {
+		photo.style.display = "none";
+	} else {
+		if(noResizeIfSmaller && photo._size.w < maxDim && photo._size.h < maxDim) {
+			photo.style.visibility = "visible";
+		} else {
+			malica.ImageResizer.resize(photo, photo._size.w, photo._size.h, maxDim);
+			photo.style.visibility = "visible";
+		}
+	}
+};
+malica.ImageResizer.resize = function(photo, originalW, originalH, maxDim) {
+	photo.height = photo.width = null;
+	if(originalW > originalH) {
+		photo.width = maxDim;
+	} else {
+		photo.height = maxDim;
+	}
 };

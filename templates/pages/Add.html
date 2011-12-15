@@ -19,6 +19,18 @@
 		<textarea style="width:100%">javascript:var iframe=document.createElement("iframe");iframe.style.display="none";document.body.appendChild(iframe);iframe.src="http://malistedecadeaux.appspot.com/quickAdd?site="+encodeURIComponent(document.location.href);</textarea> 
 	</div -->
 
+	<div id="addPresentPreview">
+		<div class="presentItem">
+			<div class="img">&nbsp;
+				<img src="/statics/images/noImage.png" />
+			</div>
+			<div class="info">
+				<h4><span class="title"></span><span class="url"></span></h4>
+				<p class="price">-- &euro;</p>
+			</div>
+		</div>
+	</div>
+
 	<div id="addPresentForm">
 		<input type="text" id="smartInput" placeholder="Ajoutez un cadeau. Entrez une description ou un lien." />
 		
@@ -36,17 +48,5 @@
 			var page = new malica.AddPresentPage($('#smartInput'));
 			page.init();
 		</script>
-	</div>
-	
-	<div id="addPresentPreview">
-		<div class="presentItem">
-			<div class="img">&nbsp;
-				<img src="/statics/images/noImage.png" />
-			</div>
-			<div class="info">
-				<h4><span class="title"></span><span class="url"></span></h4>
-				<p class="price">-- &euro;</p>
-			</div>
-		</div>
 	</div>
 {% endblock %}
