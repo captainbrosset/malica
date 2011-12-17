@@ -49,7 +49,7 @@ class BaseParser(object):
 			return re.findall('<title>(.*?)</title>', self.pageContent, re.DOTALL)[0]
 		except:
 			return ""
-			
+	
 	# base implementation of getPrice: returns 0
 	def getPrice(self):
 		return 0

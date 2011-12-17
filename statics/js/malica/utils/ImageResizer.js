@@ -51,7 +51,7 @@ malica.ImageResizer.prototype._resizeAPhoto = function(photo, maxDim, noResizeIf
 	}
 };
 malica.ImageResizer.resize = function(photo, originalW, originalH, maxDim) {
-	photo.height = photo.width = null;
+	//photo.height = photo.width = null;
 	if(originalW > originalH) {
 		photo.width = maxDim;
 	} else {

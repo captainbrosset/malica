@@ -1,12 +1,14 @@
 <link rel="stylesheet" href="/statics/css/presentList.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/statics/css/presentItem.css" type="text/css" media="screen" />
 
 <ul class="presentList">
 {% for present in presents %}
 	<li class="presentItem" title="{{ present.title }}">
+		<!--
 		{% if current_user %}
 			<p class="del"><a href="/effacer?key={{ present.key }}" title="Supprimer ce cadeau">&nbsp;</a></p>
 		{% endif %}
-		
+		-->
 		<div class="img">&nbsp;
 			{% if present.image %}
 				<img src="{{present.image}}" />
@@ -29,6 +31,6 @@
 <script type="text/javascript">
 	$(window).ready(function() {	
 		var resizer = new malica.ImageResizer($(".presentList li.presentItem img"));
-		resizer.resizeOnPageLoad(200);
+		resizer.resizeOnPageLoad(200, true);
 	});
 </script>

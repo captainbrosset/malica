@@ -1,12 +1,8 @@
 {% extends "Base.html" %}
 
-{% block nav %}
-	<li>ajouter un cadeau &agrave; la liste {{ current_user }}</li>
-	<li><a href="/">retour à ma liste</a></li>
-{% endblock %}
-
 {% block content %}
 	<link rel="stylesheet" href="/statics/css/addPresent.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/statics/css/presentItem.css" type="text/css" media="screen" />
 
 	<!-- div class="sideNote">
 		<h3>Ajouter un cadeau par tchat!</h3>
@@ -19,34 +15,50 @@
 		<textarea style="width:100%">javascript:var iframe=document.createElement("iframe");iframe.style.display="none";document.body.appendChild(iframe);iframe.src="http://malistedecadeaux.appspot.com/quickAdd?site="+encodeURIComponent(document.location.href);</textarea> 
 	</div -->
 
-	<div id="addPresentPreview">
-		<div class="presentItem">
-			<div class="img">&nbsp;
-				<img src="/statics/images/noImage.png" />
-			</div>
-			<div class="info">
-				<h4><span class="title"></span><span class="url"></span></h4>
-				<p class="price">-- &euro;</p>
-			</div>
-		</div>
-	</div>
+	<form action="/ajouter" method="post">
 
-	<div id="addPresentForm">
-		<input type="text" id="smartInput" placeholder="Ajoutez un cadeau. Entrez une description ou un lien." />
-		
-		<ul id="images"></ul>
-		<input type="hidden" id="image" />
-		
-		<input id="url" type="text" name="url" placeholder="http://..." />
-		<textarea id="title" type="text" name="title" placeholder="Description du cadeau" rows="3" cols="10"></textarea>
-		<input id="approximatePrice" type="text" name="approximatePrice" placeholder="40" />
-		
-		<script type="text/javascript" src="/statics/js/malica/utils/ImageResizer.js"></script>
-		<script type="text/javascript" src="/statics/js/malica/utils/SmartInputDetector.js"></script>
-		<script type="text/javascript" src="/statics/js/malica/AddPresent.js"></script>
-		<script type="text/javascript">
-			var page = new malica.AddPresentPage($('#smartInput'));
-			page.init();
-		</script>
-	</div>
+		<div id="add">
+			<label for="smartInput">entrez une adresse de site internet, une description, ou les deux...</label>
+			<input type="text" id="smartInput" />
+			<input type="hidden" id="url" name="url" />
+			<div class="step" step="1">
+				<label>choisissez une photo...</label>
+				<ul id="images"></ul>
+				<input type="hidden" id="photo" name="image" />
+			</div>
+			<div class="step" step="2">
+				<label for="price">entrez un prix approximatif...</label>
+				<input type="text" id="price" name="approximatePrice" />
+			</div>
+			<div class="step" step="3">
+				<label for="title">entrez ou modifiez la description...</label>
+				<input type="text" id="title" name="title" />
+			</div>
+			<div class="step" step="4">
+				<label>verifiez le cadeau...</label>
+				<div id="addPresentPreview">
+					<div class="presentItem">
+						<div class="img">&nbsp;
+							<img src="/statics/images/noImage.png" />
+						</div>
+						<div class="info" title="Cliquez pour changer les informations">
+							<h4><span class="title" title="Cliquez pour editer la desription"></span><span class="url"></span></h4>
+							<p class="price" title="Cliquez pour editer le prix"><span>--</span> &euro;</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button>Continuez</button>
+		</div>
+	
+	</form>
+	
+	<script type="text/javascript" src="/statics/js/malica/utils/ImageResizer.js"></script>
+	<script type="text/javascript" src="/statics/js/malica/utils/SmartInputDetector.js"></script>
+	<script type="text/javascript" src="/statics/js/malica/present/Creator.js"></script>
+	<script type="text/javascript" src="/statics/js/malica/present/Previewer.js"></script>
+	<script type="text/javascript">
+		var page = new malica.present.Creator();
+		page.init();
+	</script>
 {% endblock %}

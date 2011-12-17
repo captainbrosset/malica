@@ -1,15 +1,5 @@
 {% extends "Base.html" %}
 
-{% block nav %}
-	<li>Bienvenue sur Malica</li>
-	{% if current_user %}
-		<li><a href="/{{ current_user }}">ma liste</a></li>
-	{% else %}
-		<li><a href="https://www.google.com/accounts/NewAccount" target="_blank">Créez un compte</a></li>
-		<li><a href="{{ um_url }}">Identifiez-vous</a></li>
-	{% endif %}
-{% endblock %}
-
 {% block content %}
 	<div id="list">	
 		{% include "../parts/presentList.html" %}

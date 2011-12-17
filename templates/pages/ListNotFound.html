@@ -1,12 +1,5 @@
 {% extends "Base.html" %}
 
-{% block nav %}
-	<li>Cette liste n'existe pas</li>
-	{% if current_user %}
-	<li><a href="/{{ current_user }}">Revenir &agrave; votre liste</a></li>
-	{% endif %}
-{% endblock %}
-
 {% block content %}
-	Sorry
+	Liste non existante
 {% endblock %}

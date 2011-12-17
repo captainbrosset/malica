@@ -1,12 +1,5 @@
 {% extends "Base.html" %}
 
-{% block nav %}
-	<li>la liste de {{ currentListEmail }}</li>
-	{% if current_user %}
-	<li><a href="/ajouter">Ajouter un cadeau</a></li>
-	{% endif %}
-{% endblock %}
-
 {% block content %}
 	<div id="list">
 		{% if atLeastOnePresent %}
