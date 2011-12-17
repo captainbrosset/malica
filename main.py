@@ -1,14 +1,19 @@
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
-import handlers
 import logging
 
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp.util import run_wsgi_app
+
+from handlers import specialhandlers
+from handlers import mainsitehandlers
+from handlers import managepresenthandlers
+
 handlerMapping = [
-	('/ajouter', handlers.AddPresent),
-	('/effacer', handlers.DeletePresent),
-	('/json_getInfoFromUrl', handlers.GetInfoFromUrl),
-	('/([^/]+)', handlers.List),
-	('/', handlers.Home)
+	('/_ah/xmpp/message/chat/', specialhandlers.XmppHandler),
+	('/ajouter', managepresenthandlers.Add),
+	('/effacer', managepresenthandlers.Delete),
+	('/json_getInfoFromUrl', specialhandlers.GetInfoFromUrl),
+	('/([^/]+)', mainsitehandlers.List),
+	('/', mainsitehandlers.Home)
 ]
 
 webapp.template.register_template_library('templatetags.templateFilters')
