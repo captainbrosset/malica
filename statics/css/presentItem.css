@@ -1,0 +1,48 @@
+.presentItem {
+	width: 235px;
+}
+.presentItem .img {
+	line-height: 235px;
+	text-align: center;
+	width: 235px;
+	height: 235px;
+}
+.presentItem img {
+	display: inline;
+	vertical-align: middle;
+}
+.presentItem .info {
+	padding: 10px 30px 10px 10px;
+	overflow: hidden;
+	position: relative;
+	border-top: 1px solid #eee;
+	min-height: 40px;
+}
+.presentItem h4 {
+	margin: 0;
+	font-weight: normal;
+}
+.presentItem h4 a {
+	color: #40b9bc;
+}
+.presentItem .price {
+	background: url(../images/priceTag.png) no-repeat -5px center;
+	font-weight: bold;
+	color: white;
+	margin: 0;
+	position: absolute;
+	top: 18px;
+	right: -16px;
+	padding: 2px 10px 2px 2px;
+	width: 50px;
+	text-align: center;
+	-moz-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+}
+.presentItem .user {
+	font-weight: bold;
+	margin: 0;
+}
+.presentItem .user a {
+	text-decoration: none;
+}
