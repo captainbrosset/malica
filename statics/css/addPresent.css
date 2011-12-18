@@ -39,6 +39,9 @@
 	overflow: hidden;
 	margin-bottom:20px;
 }
+#add #images.loading {
+	background: white url(../images/loading.gif) no-repeat center center;
+}
 #add #images li {
 	float: left;
 }

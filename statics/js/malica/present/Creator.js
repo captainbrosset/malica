@@ -15,6 +15,7 @@ malica.present.Creator.prototype.init = function() {
 	this._$smartInput.blur(function() {
 		self.firstStep();
 		self._previewer.reset();
+		$("#images").html("");
 		var parsedInput = malica.SmartInputDetector.detect(this.value);
 		if(!parsedInput.url) {
 			self._startSimpleAddition(parsedInput.description);
@@ -42,6 +43,7 @@ malica.present.Creator.prototype.init = function() {
 malica.present.Creator.prototype.firstStep = function() {
 	$(".step[step]").hide();
 	this._step = 1;
+	this.startLoadingIndicatorOnImages();
 };
 malica.present.Creator.prototype.nextStep = function() {
 	if(this._step == 5) {
@@ -55,6 +57,12 @@ malica.present.Creator.prototype.nextStep = function() {
 malica.present.Creator.prototype.lastStep = function() {
 	// Submit the form to add the present! Everything is fine now
 	$("form").submit();
+};
+malica.present.Creator.prototype.startLoadingIndicatorOnImages = function() {
+	$("#images").addClass("loading");
+};
+malica.present.Creator.prototype.stopLoadingIndicatorOnImages = function() {
+	$("#images").removeClass("loading");	
 };
 malica.present.Creator.prototype._startSimpleAddition = function(description) {
 	this._previewer.setDescription(description);
@@ -89,9 +97,8 @@ malica.present.Creator.prototype._startUrlAddition = function(url, description) 
 	});
 };
 malica.present.Creator.prototype._displayImages = function(images) {
-	// FIXME: Beware of memory leaks ! Especially with the new event listener on image loading
-	$("#images").html("");
-
+	this.stopLoadingIndicatorOnImages();
+	
 	for(var i = 0, l = images.length; i < l; i ++) {
 		$("#images").append("<li><img src='" + images[i] + "' style='visibility:hidden;' /></li>");
 	}
