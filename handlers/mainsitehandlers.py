@@ -6,19 +6,20 @@ from google.appengine.api import users
 
 import utils
 import datamodel
+import base
 
 # Home handler, shows main page when not logged in, list when logged in
-class Home(webapp.RequestHandler):
+class Home(base.BaseHandler):
 	def get(self):
 		# Show some presents on the home page
 		data = utils.prepare_base_template_values(self)
 		data['presents'] = utils.prepare_present_list_for_template(datamodel.Present.all().order("-dateAdded").fetch(12))
-		path = utils.get_template_path('templates/pages/Home.html')
-		self.response.out.write(template.render(path, data))
+
+		self.writeTemplateToResponse('pages/Home.html', data)
 
 # List request handler
 # Lists the presents of the current user if any
-class List(webapp.RequestHandler):
+class List(base.BaseHandler):
     def get(self, email):
 		email = email.replace("%40", "@")
 		data = utils.prepare_base_template_values(self)
@@ -39,9 +40,7 @@ class List(webapp.RequestHandler):
 				data['isLoggedIn'] = True
 				data['userPublicUrl'] = o.scheme + "://" + o.netloc + o.path + "/" + users.get_current_user().email()
 
-			path = utils.get_template_path('templates/pages/List.html')
-			self.response.out.write(template.render(path, data))
+			self.writeTemplateToResponse('pages/List.html', data)
 
 		else:
-			path = utils.get_template_path('templates/pages/ListNotFound.html')
-			self.response.out.write(template.render(path, data))
+			self.writeTemplateToResponse('pages/ListNotFound.html', data)

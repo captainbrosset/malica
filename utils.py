@@ -11,23 +11,6 @@ import logging
 from google.appengine.api import users
 import urllib, hashlib
 
-# Sniff the user agent to tell people they should use decent browsers ...
-def is_supported_browser():
-	ua = os.environ.get("HTTP_USER_AGENT", "N/A")
-	
-	logging.debug(ua)
-	
-	# For now, only a simple find string is used and only gecko and webkit are supported
-	webkit = ua.find("AppleWebKit") != -1
-	ff = ua.find("Gecko") != -1
-	
-	return ff or webkit
-
-
-# Simply returns the real path of the template file given its relative path
-def get_template_path(template):
-	return os.path.join(os.path.dirname(__file__), template)
-
 
 # Utility method that returns the list of URLs of all <img> tags found on a page located at a given URL
 def get_image_urls_and_title_from_page(url):
@@ -105,7 +88,7 @@ def prepare_present_list_for_template(presents):
 			'approximatePrice': present.approximatePrice,
 			'url': present.url,
 			'image': present.image,
-			'user': present.user
+			'user': present.user.email()
 		})
 	return list
 

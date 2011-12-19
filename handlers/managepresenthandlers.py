@@ -4,14 +4,16 @@ from google.appengine.ext import webapp
 
 import datamodel
 import utils
+import base
 
 # AddPresent request handler
 # Adds a present for the current user in the model
-class Add(webapp.RequestHandler):
+class Add(base.BaseHandler):
 	def get(self):
 		if users.get_current_user():
 			data = utils.prepare_base_template_values(self)
-			self.response.out.write(template.render('templates/pages/Add.html', data))
+
+			self.writeTemplateToResponse('pages/Add.html', data)
 		else:
 			self.redirect('/?msg=needToBeLoggedToAdd')
 	def post(self):
@@ -39,7 +41,7 @@ class Add(webapp.RequestHandler):
 
 # DeletePresent request handler
 # Deletes a present for the current user in the model, given its unique key
-class Delete(webapp.RequestHandler):
+class Delete(base.BaseHandler):
 	def get(self):
 		if users.get_current_user():
 			present = datamodel.Present.get(self.request.get('key'))
