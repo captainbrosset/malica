@@ -6,9 +6,12 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from handlers import specialhandlers
 from handlers import mainsitehandlers
 from handlers import managepresenthandlers
+from handlers import loginhandlers
 
 handlerMapping = [
 	('/_ah/xmpp/message/chat/', specialhandlers.XmppHandler),
+	('/connect/twitter/(.*)', loginhandlers.OAuthTwitterLogin),
+	('/disconnect', loginhandlers.Logout),
 	('/ajouter', managepresenthandlers.Add),
 	('/effacer', managepresenthandlers.Delete),
 	('/json_getInfoFromUrl', specialhandlers.GetInfoFromUrl),

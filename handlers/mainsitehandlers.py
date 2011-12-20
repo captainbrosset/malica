@@ -7,6 +7,7 @@ from google.appengine.api import users
 import utils
 import datamodel
 import base
+from util.gaesessions import get_current_session
 
 # Home handler, shows main page when not logged in, list when logged in
 class Home(base.BaseHandler):
@@ -20,25 +21,24 @@ class Home(base.BaseHandler):
 # List request handler
 # Lists the presents of the current user if any
 class List(base.BaseHandler):
-    def get(self, email):
-		email = email.replace("%40", "@")
+    def get(self, username):
 		data = utils.prepare_base_template_values(self)
 
-		if utils.is_email_in_datamodel(email):
+		if utils.is_username_in_datamodel(username):
 			sort = utils.get_current_sort(self.request.get("sort"))
 
-			presentsAndPages = utils.get_presents_and_pages(users.User(email), sort)
+			presentsAndPages = utils.get_presents_and_pages(username, sort)
 			data.update(presentsAndPages)
 			data['currentSort'] = sort
 			data['sortUrls'] = utils.get_current_sort_urls(sort)
 			data['isLoggedIn'] = False
-			data['currentListEmail'] = email
 
-			if users.get_current_user():
+			session = get_current_session()
+			if session.is_active():
 				# get the public user list URL
 				o = urlparse(self.request.url)
 				data['isLoggedIn'] = True
-				data['userPublicUrl'] = o.scheme + "://" + o.netloc + o.path + "/" + users.get_current_user().email()
+				data['userPublicUrl'] = o.scheme + "://" + o.netloc + o.path + "/" + username
 
 			self.writeTemplateToResponse('pages/List.html', data)
 

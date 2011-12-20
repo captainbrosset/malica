@@ -1,16 +1,18 @@
+import urllib, hashlib
 from urlparse import urlparse
-import siteparser
-from google.appengine.api import users
-from htmlentitydefs import name2codepoint
-from django.core.paginator import ObjectPaginator, InvalidPage
 import os
 import re
 import urllib2
-import datamodel
 import logging
-from google.appengine.api import users
-import urllib, hashlib
 
+from google.appengine.api import users
+from htmlentitydefs import name2codepoint
+from django.core.paginator import ObjectPaginator, InvalidPage
+from google.appengine.api import users
+
+from util.gaesessions import get_current_session
+import datamodel
+import siteparser
 
 # Utility method that returns the list of URLs of all <img> tags found on a page located at a given URL
 def get_image_urls_and_title_from_page(url):
@@ -40,19 +42,16 @@ def get_gravatar_url(email):
 	
 # Utility method that returns the base template values to be used in most request handlers: current user and login/logout links
 def prepare_base_template_values(request):
-	if users.get_current_user():
-		um_url = users.create_logout_url("/")
-		um_link_text = "se d&eacute;connecter"
-		gravatar_url = get_gravatar_url(users.get_current_user().email())
-	else:
-		um_url = users.create_login_url("/")
-		um_link_text = "se connecter"
-		gravatar_url = None
+	session = get_current_session()
+	is_logged_in = False
+	user_info = {}
+	if session.is_active() and session.has_key("user_info"):
+		is_logged_in = True
+		user_info = session["user_info"]
+
 	return {
-		'um_url': um_url,
-		'um_link_text': um_link_text,
-		'current_user': users.get_current_user(),
-		'gravatar_url': gravatar_url
+		'is_logged_in': is_logged_in,
+		'user_info': user_info
 	}
 
 
@@ -62,9 +61,8 @@ def get_current_sort(requestedSort):
 		sort = requestedSort
 	return sort
 
-def is_email_in_datamodel(email):
-	user = users.User(email)
-	query = datamodel.Present.all().filter("user = ", user)
+def is_username_in_datamodel(username):
+	query = datamodel.Present.all().filter("user = ", username)
 	logging.info(query.fetch(1))
 	presents = query.fetch(1)
 	if len(presents) == 1:
@@ -88,14 +86,14 @@ def prepare_present_list_for_template(presents):
 			'approximatePrice': present.approximatePrice,
 			'url': present.url,
 			'image': present.image,
-			'user': present.user.email()
+			'user': present.user
 		})
 	return list
 
 PAGESIZE = 16
 
-def get_presents_and_pages(user, order):
-	query = datamodel.Present.all().order(order).filter("user = ", user)
+def get_presents_and_pages(username, order):
+	query = datamodel.Present.all().order(order).filter("user = ", username)
 
 	presents = prepare_present_list_for_template(query.fetch(1000))
 

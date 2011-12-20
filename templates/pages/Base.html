@@ -1,32 +1,41 @@
-{% include "../parts/header.html" %}
-
-<link rel="stylesheet" href="/statics/css/page.css" type="text/css" media="screen" />
-
-<div id="page">
-	<div class="wrap">
-		<div id="header">
-			<h1>
-				<a href="/" title="malica - ma liste de cadeaux"><span>ma liste de cadeaux</span></a>
-			</h1>
-			
-			<p id="um">
-				<span class="um_email">{{ current_user.email }}</span>
-				<span class="um_link">
-					<a href="{{ um_url }}">{{ um_link_text }}</a>
-				</span>
-				{% if gravatar_url %}
-				<img src="{{ gravatar_url }}" />
-				{% endif %}
-			</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+	    <title>malica - ma liste de cadeaux</title>
+		<script src="/statics/js/libs/jquery-1.4.4.min.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="/statics/css/main.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/statics/css/messages.css" type="text/css" media="screen" />
+		<link rel="icon" type="image/png" href="/statics/images/favicon.png" />
+	</head>
+	<body>
+		<div id="page">
+			<div class="wrap">
+				<div id="header">
+					<h1>
+						<a href="/" title="malica - ma liste de cadeaux"><span>ma liste de cadeaux</span></a>
+					</h1>
+					<p id="um">
+						{% if is_logged_in %}
+							<span class="um_email">{{ user_info.username }}</span>
+							<span class="um_link">
+								<a href="/disconnect">Se d&eacute;connecter</a>
+							</span>
+							<img src="{{ user_info.picture }}" />
+						{% else %}
+							<span class="um_link">
+								<a href="/connect/twitter/request">Se connecter (via Twitter)</a>
+							</span>
+						{% endif %}
+					</p>
+				</div>
+				<div id="content">
+					{% block content %}
+						content
+					{% endblock %}
+				</div>
+			</div>
 		</div>
-	
-		<div id="content">
-			{% block content %}
-				content
-			{% endblock %}
-		</div>
-	</div>
-
-</div>
-
-{% include "../parts/footer.html" %}
+		<script type="text/javascript" src="/statics/Messages.js"></script>
+	</body>
+</html>
