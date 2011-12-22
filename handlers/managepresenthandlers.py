@@ -2,7 +2,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import users
 from google.appengine.ext import webapp
 
-import datamodel
+from model.present import Present, PresentCounter
 import utils
 import base
 from util.gaesessions import get_current_session
@@ -24,7 +24,7 @@ class Add(base.BaseHandler):
 	def post(self):
 		session = get_current_session()
 		if session.is_active() and self.request.get('title'):
-			present = datamodel.Present(title=self.request.get('title'), user=session["user_info"]["username"])
+			present = Present(title=self.request.get('title'), user=session["user_info"]["username"])
 			if self.request.get('approximatePrice'):
 				present.approximatePrice = int(self.request.get('approximatePrice'))
 			if self.request.get('url'):
@@ -36,9 +36,9 @@ class Add(base.BaseHandler):
 			
 			#increment counter
 			try:
-				counter = datamodel.PresentCounter.all().fetch(1)[0]
+				counter = PresentCounter.all().fetch(1)[0]
 			except:
-				counter = datamodel.PresentCounter(count=0)
+				counter = PresentCounter(count=0)
 			counter.count += 1
 			counter.put()
 			
@@ -52,11 +52,11 @@ class Delete(base.BaseHandler):
 	def get(self):
 		session = get_current_session()
 		if session.is_active():
-			present = datamodel.Present.get(self.request.get('key'))
+			present = Present.get(self.request.get('key'))
 			if present.user == session["user_info"]["username"]:
 				present.delete();
 				#increment counter
-				counter = datamodel.PresentCounter.all().fetch(1)[0]
+				counter = PresentCounter.all().fetch(1)[0]
 				counter.count -= 1
 				counter.put()
 		self.redirect('/?msg=deleteOk')

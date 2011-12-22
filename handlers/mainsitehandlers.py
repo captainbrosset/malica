@@ -5,7 +5,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import users
 
 import utils
-import datamodel
+from model.present import Present
 import base
 from util.gaesessions import get_current_session
 
@@ -14,7 +14,7 @@ class Home(base.BaseHandler):
 	def get(self):
 		# Show some presents on the home page
 		data = utils.prepare_base_template_values(self)
-		data['presents'] = utils.prepare_present_list_for_template(datamodel.Present.all().order("-dateAdded").fetch(12))
+		data['presents'] = utils.prepare_present_list_for_template(Present.all().order("-dateAdded").fetch(12))
 
 		self.writeTemplateToResponse('pages/Home.html', data)
 
