@@ -8,7 +8,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import users
 
 import utils
-import datamodel
+from model.present import Present
 
 # GetInfoFromUrl request handler
 # Called through XHR request to return a list of images corresponding to the given URL as json array, and the title of the page
@@ -54,7 +54,7 @@ class XmppHandler(xmpp_handlers.CommandHandler):
 		try:
 			info = utils.get_image_urls_and_title_from_page(url)
 			if info['title']:
-				present = datamodel.Present(title=info['title'], user=users.User(email))
+				present = Present(title=info['title'], user=users.User(email))
 				present.approximatePrice = int(info['price'])
 				present.url = url
 				# We're going to have to choose the first image anyway ...

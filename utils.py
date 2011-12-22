@@ -11,7 +11,7 @@ from django.core.paginator import ObjectPaginator, InvalidPage
 from google.appengine.api import users
 
 from util.gaesessions import get_current_session
-import datamodel
+from model.present import Present
 import siteparser
 
 # Utility method that returns the list of URLs of all <img> tags found on a page located at a given URL
@@ -62,7 +62,7 @@ def get_current_sort(requestedSort):
 	return sort
 
 def is_username_in_datamodel(username):
-	query = datamodel.Present.all().filter("user = ", username)
+	query = Present.all().filter("user = ", username)
 	logging.info(query.fetch(1))
 	presents = query.fetch(1)
 	if len(presents) == 1:
@@ -93,7 +93,7 @@ def prepare_present_list_for_template(presents):
 PAGESIZE = 16
 
 def get_presents_and_pages(username, order):
-	query = datamodel.Present.all().order(order).filter("user = ", username)
+	query = Present.all().order(order).filter("user = ", username)
 
 	presents = prepare_present_list_for_template(query.fetch(1000))
 
